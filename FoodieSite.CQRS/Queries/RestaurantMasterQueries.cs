@@ -11,24 +11,19 @@ namespace FoodieSite.CQRS.Queries
 {
     public class RestaurantMasterQueries : IRestaurantMasterQueries
 	{
-		private readonly IRestaurantMasterQueryRepository repository;
-		public RestaurantMasterQueries(IRestaurantMasterQueryRepository _repository)
-		{
-			repository = _repository;
-		}
-		public async Task<JsonResponse> GetAll()
-		{
-			return await repository.GetAll();
-		}
+        private readonly IRestaurantMasterQueryRepository repository;
+        public RestaurantMasterQueries(IRestaurantMasterQueryRepository _repository)
+        {
+            repository = _repository;
+        }
+        public async Task<JsonResponse> GetAll()
+        {
+            return await repository.GetAll();
+        }
 
-		public async Task<JsonResponse> GetByCompanyId(Guid id)
-		{
-			return await repository.GetByCompanyId(id);
-		}
-
-		public async Task<JsonResponse> GetByRestaurantId(Guid id)
-		{
-			return await repository.GetByRestaurantId(id);
-		}
-	}
+        public async Task<JsonResponse> GetById(Guid id)
+        {
+            return await repository.GetById(id);
+        }
+    }
 }

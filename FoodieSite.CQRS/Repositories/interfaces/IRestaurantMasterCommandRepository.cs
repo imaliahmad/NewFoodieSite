@@ -9,8 +9,8 @@ namespace FoodieSite.CQRS.Repositories.interfaces
 {
 	public interface IRestaurantMasterCommandRepository
 	{
-		Task<JsonResponse> Insert(RestaurantMaster obj);
-		Task<JsonResponse> Update(RestaurantMaster obj);
-		Task<JsonResponse> Delete(Guid id);
-	}
+        Task<JsonResponse> Insert(RestaurantMaster obj);
+        Task<JsonResponse> Update(RestaurantMaster obj);
+        Task<JsonResponse> Delete(Guid id);
+    }
 }
