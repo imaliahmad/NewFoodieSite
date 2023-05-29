@@ -10,7 +10,6 @@ namespace FoodieSite.CQRS.Repositories.interfaces
     public interface IRestaurantMasterQueryRepository
     {
         Task<JsonResponse> GetAll();
-        Task<JsonResponse> GetByRestaurantId(Guid id);
-        Task<JsonResponse> GetByCompanyId(Guid id);
+        Task<JsonResponse> GetById(Guid id);
     }
 }

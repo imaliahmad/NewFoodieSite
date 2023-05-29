@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace FoodieSite.CQRS.Commands.interfaces
 {
-	public interface IRestaurantMasterCommands
-	{
-		Task<JsonResponse> Insert(RestaurantMaster obj);
-		Task<JsonResponse> Update(RestaurantMaster obj);
-		Task<JsonResponse> Delete(Guid id);
-	}
+    public interface IRestaurantMasterCommands
+    {
+        Task<JsonResponse> Insert(RestaurantMaster obj);
+        Task<JsonResponse> Update(RestaurantMaster obj);
+        Task<JsonResponse> Delete(Guid id);
+    }
 }

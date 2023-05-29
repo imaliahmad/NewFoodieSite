@@ -36,6 +36,7 @@ builder.Services.AddDbContext<EFCoreDbContext>
 	(options => options.UseSqlServer(builder.Configuration.
 									 GetConnectionString("DbConfig")));
 
+
 #region Register Commands
 builder.Services.AddTransient<IRestaurantMasterCommands, RestaurantMasterCommands>();
 #endregion
@@ -48,7 +49,6 @@ builder.Services.AddTransient<IRestaurantMasterQueries, RestaurantMasterQueries>
 builder.Services.AddTransient<IRestaurantMasterCommandRepository, RestaurantMasterCommandRepository>();
 builder.Services.AddTransient<IRestaurantMasterQueryRepository, RestaurantMasterQueryRepository>();
 #endregion
-
 
 var app = builder.Build();
 
