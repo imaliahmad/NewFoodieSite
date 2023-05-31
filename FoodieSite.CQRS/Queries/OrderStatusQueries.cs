@@ -10,23 +10,23 @@ using System.Threading.Tasks;
 namespace FoodieSite.CQRS.Queries
 {
     /// <summary>
-    /// Represents the implementation of restaurant master queries.
+    /// Represents the implementation of order status queries.
     /// </summary>
-    public class RestaurantMasterQueries : IRestaurantMasterQueries
+    public class OrderStatusQueries : IOrderStatusQueries
     {
-        private readonly IRestaurantMasterQueryRepository repository;
+        private readonly IOrderStatusQueryRepository repository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RestaurantMasterQueries"/> class.
+        /// Initializes a new instance of the <see cref="OrderStatusQueries"/> class.
         /// </summary>
-        /// <param name="_repository">The restaurant master query repository.</param>
-        public RestaurantMasterQueries(IRestaurantMasterQueryRepository _repository)
+        /// <param name="_repository">The order status query repository.</param>
+        public OrderStatusQueries(IOrderStatusQueryRepository _repository)
         {
             repository = _repository;
         }
 
         /// <summary>
-        /// Retrieves all restaurant details.
+        /// Retrieves all order statuses.
         /// </summary>
         /// <returns>A <see cref="Task{JsonResponse}"/> representing the asynchronous operation.</returns>
         public async Task<JsonResponse> GetAll()
@@ -35,9 +35,9 @@ namespace FoodieSite.CQRS.Queries
         }
 
         /// <summary>
-        /// Retrieves restaurant details by its ID.
+        /// Retrieves order status by its ID.
         /// </summary>
-        /// <param name="id">The ID of the restaurant.</param>
+        /// <param name="id">The ID of the order status.</param>
         /// <returns>A <see cref="Task{JsonResponse}"/> representing the asynchronous operation.</returns>
         public async Task<JsonResponse> GetById(Guid id)
         {

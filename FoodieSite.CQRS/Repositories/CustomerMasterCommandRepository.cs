@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace FoodieSite.CQRS.Repositories
 {
+    /// <summary>
+    /// Repository for performing insert, update and delete operations related to CustomerMaster entities.
+    /// </summary>
     public class CustomerMasterCommandRepository : ICustomerMasterCommandRepository
     {
         private readonly EFCoreDbContext context;
@@ -16,7 +19,11 @@ namespace FoodieSite.CQRS.Repositories
             context = _context;
         }
 
-        // Deletes a customer by ID
+        /// <summary>
+        /// Deletes a customer by ID.
+        /// </summary>
+        /// <param name="id">The ID of the customer to delete.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the success or failure of the operation.</returns>
         public async Task<JsonResponse> Delete(Guid id)
         {
             var obj = await context.tblCustomerMaster.Where(x => x.Id == id && x.IsActive == true).FirstOrDefaultAsync();
@@ -32,7 +39,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Message = "Record deleted successfully.", StatusCode = 200 };
         }
 
-        // Inserts a new customer
+        /// <summary>
+        /// Inserts a new customer.
+        /// </summary>
+        /// <param name="obj">The customer object to insert.</param>
+        /// <returns>A <see cref="JsonResponse"/> containing the inserted customer and the status of the operation.</returns>
         public async Task<JsonResponse> Insert(CustomerMaster obj)
         {
             obj.IsActive = true;
@@ -44,7 +55,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Data = obj, Message = "Record saved successfully.", StatusCode = 200 };
         }
 
-        // Updates an existing customer
+        /// <summary>
+        /// Updates an existing customer.
+        /// </summary>
+        /// <param name="obj">The customer object with updated values.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the success or failure of the update operation.</returns>
         public async Task<JsonResponse> Update(CustomerMaster obj)
         {
             var record = await context.tblCustomerMaster.Where(x => x.Id == obj.Id && x.IsActive == true).FirstOrDefaultAsync();

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodieSite.CQRS.Queries.Interfaces
+namespace FoodieSite.CQRS.Queries.interfaces
 {
     public interface ICustomerMasterQueries
     {

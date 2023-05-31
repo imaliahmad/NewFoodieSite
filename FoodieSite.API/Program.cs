@@ -39,15 +39,18 @@ builder.Services.AddDbContext<EFCoreDbContext>
 
 #region Register Commands
 builder.Services.AddTransient<IRestaurantMasterCommands, RestaurantMasterCommands>();
+builder.Services.AddTransient<IStoreMasterCommands, StoreMasterCommands>();
 #endregion
 
 #region Register Queries
 builder.Services.AddTransient<IRestaurantMasterQueries, RestaurantMasterQueries>();
-
+builder.Services.AddTransient<IStoreMasterQueries, StoreMasterQueries>();
 #endregion
 #region Register Repositories
 builder.Services.AddTransient<IRestaurantMasterCommandRepository, RestaurantMasterCommandRepository>();
 builder.Services.AddTransient<IRestaurantMasterQueryRepository, RestaurantMasterQueryRepository>();
+builder.Services.AddTransient<IStoreMasterCommandRepository, StoreMasterCommandRepository>();
+builder.Services.AddTransient<IStoreMasterQueryRepository, StoreMasterQueryRepository>();
 #endregion
 
 var app = builder.Build();

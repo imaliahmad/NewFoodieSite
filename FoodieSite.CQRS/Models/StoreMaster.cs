@@ -58,10 +58,11 @@ namespace FoodieSite.CQRS.Models
 		public string ContactNumber2 { get; set; } = string.Empty;
 
 
-		/// <summary>
-		/// FK Restaurant Master Id
-		/// </summary>
-		[Column("restaurant_id")]
+        /// <summary>
+        /// FK Restaurant Master Id
+        /// </summary>
+        [Required]
+        [Column("restaurant_id")]
 		public Guid RestaurantId { get; set; } = Guid.Empty;
 
 
