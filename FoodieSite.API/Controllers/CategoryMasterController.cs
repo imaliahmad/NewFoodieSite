@@ -1,8 +1,8 @@
 ﻿/* 
- * Summary. This is a RestaurantMaster api controller for handling and managing RestaurantMaster.
+ * Summary. This is a CategoryMaster api controller for handling and managing CategoryMaster.
  *
  * Date: 05/30/2023
- * Author: Ali Ahmed
+ * Author: Abdullah Fiaz
  * Company: How To Pakistan
  * 
  */
@@ -12,42 +12,35 @@ using FoodieSite.CQRS.Commands.interfaces;
 using FoodieSite.CQRS.Queries.interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace FoodieSite.API.Controllers
 {
     /// <summary>
-    /// This is a RestaurantMaster api controller for handling and managing RestaurantMaster.
+    /// Controller for managing store master operations.
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class RestaurantMasterController : ControllerBase
+    public class CategoryMasterController : ControllerBase
     {
-		/// <summary>
-		/// The RestaurantMaster commands for handling the restaurant get requests 
-		/// </summary>
-		private readonly IRestaurantMasterCommands objRestaurantMasterCommands;
+        private readonly ICategoryMasterCommands objCategoryMasterCommands;
+        private readonly ICategoryMasterQueries objCategoryMasterQueries;
 
-		/// <summary>
-		/// The RestaurantMaster queries for handling the restaurant post requests 
-		/// </summary>
-		private readonly IRestaurantMasterQueries objRestaurantMasterQueries;
-
-
-		/// <summary>
-		/// Constructor with parameters
-		/// </summary>
-		/// <param name="_objRestaurantMasterCommands">This field contains the command instance.</param>
-		/// <param name="_objRestaurantMasterQueries">This field contains the query instance.</param>
-		public RestaurantMasterController(IRestaurantMasterCommands _objRestaurantMasterCommands, IRestaurantMasterQueries _objRestaurantMasterQueries)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CategoryMasterController"/> class.
+        /// </summary>
+        /// <param name="_objCategoryMasterCommands">The store master commands instance.</param>
+        /// <param name="_objCategoryMasterQueries">The store master queries instance.</param>
+        public CategoryMasterController(ICategoryMasterCommands _objCategoryMasterCommands, ICategoryMasterQueries _objCategoryMasterQueries)
         {
-            objRestaurantMasterCommands = _objRestaurantMasterCommands;
-            objRestaurantMasterQueries = _objRestaurantMasterQueries;
+            objCategoryMasterCommands = _objCategoryMasterCommands;
+            objCategoryMasterQueries = _objCategoryMasterQueries;
         }
 
         /// <summary>
-        /// Read all the restaurants in the database.
+        /// Retrieves all store masters.
         /// </summary>
-        /// <returns>HTTP response containing the list of restaurants.</returns>
+        /// <returns>HTTP response containing the list of store masters.</returns>
         [HttpGet]
         [Route("getAll")]
         public async Task<IActionResult> GetAll()
@@ -55,7 +48,7 @@ namespace FoodieSite.API.Controllers
             try
             {
                 var responseDTO = JsonResponseDTO.ToJsonResponseDTO(
-					                         await objRestaurantMasterQueries.GetAll()); 
+                    await objCategoryMasterQueries.GetAll());
 
                 return StatusCode(responseDTO.StatusCode, responseDTO);
             }
@@ -67,10 +60,10 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Gets a restaurant by its ID.
+        /// Retrieves a store master by its ID.
         /// </summary>
-        /// <param name="Id">The ID of the restaurant master.</param>
-        /// <returns>HTTP response containing the restaurant master.</returns>
+        /// <param name="Id">The ID of the store master.</param>
+        /// <returns>HTTP response containing the store master.</returns>
         [HttpGet]
         [Route("getById/{Id}")]
         public async Task<IActionResult> GetByRestaurantId(Guid Id)
@@ -78,7 +71,7 @@ namespace FoodieSite.API.Controllers
             try
             {
                 var responseDTO = JsonResponseDTO.ToJsonResponseDTO(
-									   await objRestaurantMasterQueries.GetById(Id));
+                    await objCategoryMasterQueries.GetById(Id));
 
                 return StatusCode(responseDTO.StatusCode, responseDTO);
             }
@@ -90,23 +83,23 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Creates a new restaurant master.
+        /// Creates a new store master.
         /// </summary>
-        /// <param name="objDTO">The DTO containing the restaurant master details.</param>
+        /// <param name="objDTO">The DTO containing the store master details.</param>
         /// <returns>HTTP response containing the result of the create operation.</returns>
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> Create([FromBody] RestaurantMasterDTO objDTO)
+        public async Task<IActionResult> Create([FromBody] CategoryMasterDTO objDTO)
         {
             try
             {
                 if (objDTO == null)
                     return BadRequest(new JsonResponseDTO() { IsSuccess = false, Message = "Object is null.", StatusCode = 500 });
 
-                var response = await objRestaurantMasterCommands.Insert(
-                                        RestaurantMasterDTO.ToRestaurantMasterModel(objDTO)); // pass to command
+                var response = await objCategoryMasterCommands.Insert(
+                    CategoryMasterDTO.ToCategoryMasterModel(objDTO));
 
-                var responseDTO = JsonResponseDTO.ToJsonResponseDTO(response); // convert into DTO 
+                var responseDTO = JsonResponseDTO.ToJsonResponseDTO(response);
 
                 return StatusCode(responseDTO.StatusCode, responseDTO);
             }
@@ -118,23 +111,23 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Updates an existing restaurant master.
+        /// Updates an existing store master.
         /// </summary>
-        /// <param name="objDTO">The DTO containing the updated restaurant master details.</param>
+        /// <param name="objDTO">The DTO containing the updated store master details.</param>
         /// <returns>HTTP response containing the result of the update operation.</returns>
         [HttpPut]
         [Route("update")]
-        public async Task<IActionResult> Update([FromBody] RestaurantMasterDTO objDTO)
+        public async Task<IActionResult> Update([FromBody] CategoryMasterDTO objDTO)
         {
             try
             {
                 if (objDTO == null)
                     return BadRequest(new JsonResponseDTO() { IsSuccess = false, Message = "Object is null.", StatusCode = 500 });
 
-                var response = await objRestaurantMasterCommands.Update(
-									     RestaurantMasterDTO.ToRestaurantMasterModel(objDTO)); // pass to command
+                var response = await objCategoryMasterCommands.Update(
+                    CategoryMasterDTO.ToCategoryMasterModel(objDTO));
 
-                var responseDTO = JsonResponseDTO.ToJsonResponseDTO(response); // convert into DTO 
+                var responseDTO = JsonResponseDTO.ToJsonResponseDTO(response);
 
                 return StatusCode(responseDTO.StatusCode, responseDTO);
             }
@@ -146,9 +139,9 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Deletes a restaurant master by its ID.
+        /// Deletes a store master by its ID.
         /// </summary>
-        /// <param name="Id">The ID of the restaurant master to delete.</param>
+        /// <param name="Id">The ID of the store master to delete.</param>
         /// <returns>HTTP response containing the result of the delete operation.</returns>
         [HttpDelete]
         [Route("delete/{Id}")]
@@ -157,7 +150,7 @@ namespace FoodieSite.API.Controllers
             try
             {
                 var responseDTO = JsonResponseDTO.ToJsonResponseDTO(
-									  await objRestaurantMasterCommands.Delete(Id)); // convert into DTO
+                    await objCategoryMasterCommands.Delete(Id));
 
                 return StatusCode(responseDTO.StatusCode, responseDTO);
             }

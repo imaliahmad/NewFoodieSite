@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace FoodieSite.CQRS.Repositories
 {
+    /// <summary>
+    /// Repository for performing CRUD operations on OrderDetails entities.
+    /// </summary>
     public class OrderDetailsCommandRepository : IOrderDetailsCommandRepository
     {
         private readonly EFCoreDbContext context;
@@ -19,7 +22,11 @@ namespace FoodieSite.CQRS.Repositories
             context = _context;
         }
 
-        // Deletes an order detail record by ID
+        /// <summary>
+        /// Deletes an order detail record by ID.
+        /// </summary>
+        /// <param name="id">The ID of the order detail record to delete.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the result of the delete operation.</returns>
         public async Task<JsonResponse> Delete(Guid id)
         {
             var obj = await context.tblOrderDetails.Where(x => x.Id == id && x.IsActive == true).FirstOrDefaultAsync();
@@ -35,7 +42,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Message = "Record deleted successfully.", StatusCode = 200 };
         }
 
-        // Inserts a new order detail record
+        /// <summary>
+        /// Inserts a new order detail record.
+        /// </summary>
+        /// <param name="obj">The order detail record to insert.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the result of the insert operation.</returns>
         public async Task<JsonResponse> Insert(OrderDetails obj)
         {
             obj.IsActive = true;
@@ -47,7 +58,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Data = obj, Message = "Record saved successfully.", StatusCode = 200 };
         }
 
-        // Updates an existing order detail record
+        /// <summary>
+        /// Updates an existing order detail record.
+        /// </summary>
+        /// <param name="obj">The updated order detail record.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the result of the update operation.</returns>
         public async Task<JsonResponse> Update(OrderDetails obj)
         {
             var record = await context.tblOrderDetails.Where(x => x.Id == obj.Id && x.IsActive == true).FirstOrDefaultAsync();

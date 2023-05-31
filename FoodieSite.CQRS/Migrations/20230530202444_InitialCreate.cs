@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FoodieSite.CQRS.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,11 +14,11 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ContactNumber1 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ContactNumber2 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    address = table.Column<string>(type: "nvarchar(350)", nullable: false),
+                    city = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    contact_number_1 = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    contact_number_2 = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -35,13 +35,13 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    RestaurantCode = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ContactNumber1 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ContactNumber2 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    restaurant_code = table.Column<string>(type: "nvarchar(350)", nullable: false),
+                    address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    city = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    contact_number_1 = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    contact_number_2 = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -58,12 +58,12 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    City = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ContactNumber1 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ContactNumber2 = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    RestaurantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    city = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    contact_number_1 = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    contact_number_2 = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    restaurant_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -74,8 +74,8 @@ namespace FoodieSite.CQRS.Migrations
                 {
                     table.PrimaryKey("PK_StoreMaster", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StoreMaster_RestaurantMaster_RestaurantId",
-                        column: x => x.RestaurantId,
+                        name: "FK_StoreMaster_RestaurantMaster_restaurant_id",
+                        column: x => x.restaurant_id,
                         principalTable: "RestaurantMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -86,9 +86,9 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    StoreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    store_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -99,8 +99,8 @@ namespace FoodieSite.CQRS.Migrations
                 {
                     table.PrimaryKey("PK_CategoryMaster", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CategoryMaster_StoreMaster_StoreId",
-                        column: x => x.StoreId,
+                        name: "FK_CategoryMaster_StoreMaster_store_id",
+                        column: x => x.store_id,
                         principalTable: "StoreMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -111,9 +111,9 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    InvoiceNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StoreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    invoice_no = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    store_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    customer_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -124,14 +124,14 @@ namespace FoodieSite.CQRS.Migrations
                 {
                     table.PrimaryKey("PK_OrderMaster", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderMaster_CustomerMaster_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_OrderMaster_CustomerMaster_customer_id",
+                        column: x => x.customer_id,
                         principalTable: "CustomerMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderMaster_StoreMaster_StoreId",
-                        column: x => x.StoreId,
+                        name: "FK_OrderMaster_StoreMaster_store_id",
+                        column: x => x.store_id,
                         principalTable: "StoreMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -142,10 +142,10 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    sale_price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    description = table.Column<string>(type: "nvarchar(250)", nullable: false),
+                    category_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -156,8 +156,8 @@ namespace FoodieSite.CQRS.Migrations
                 {
                     table.PrimaryKey("PK_ItemMaster", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItemMaster_CategoryMaster_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_ItemMaster_CategoryMaster_category_id",
+                        column: x => x.category_id,
                         principalTable: "CategoryMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -168,8 +168,8 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    status = table.Column<int>(type: "int", nullable: false),
+                    order_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -180,8 +180,8 @@ namespace FoodieSite.CQRS.Migrations
                 {
                     table.PrimaryKey("PK_OrderStatus", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderStatus_OrderMaster_OrderId",
-                        column: x => x.OrderId,
+                        name: "FK_OrderStatus_OrderMaster_order_id",
+                        column: x => x.order_id,
                         principalTable: "OrderMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -192,8 +192,8 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    type = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    order_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -204,8 +204,8 @@ namespace FoodieSite.CQRS.Migrations
                 {
                     table.PrimaryKey("PK_PaymentMaster", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PaymentMaster_OrderMaster_OrderId",
-                        column: x => x.OrderId,
+                        name: "FK_PaymentMaster_OrderMaster_order_id",
+                        column: x => x.order_id,
                         principalTable: "OrderMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -216,9 +216,9 @@ namespace FoodieSite.CQRS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ItemId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    quantity = table.Column<int>(type: "int", nullable: false),
+                    order_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    item_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -229,63 +229,63 @@ namespace FoodieSite.CQRS.Migrations
                 {
                     table.PrimaryKey("PK_OrderDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_ItemMaster_ItemId",
-                        column: x => x.ItemId,
+                        name: "FK_OrderDetails_ItemMaster_item_id",
+                        column: x => x.item_id,
                         principalTable: "ItemMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderDetails_OrderMaster_OrderId",
-                        column: x => x.OrderId,
+                        name: "FK_OrderDetails_OrderMaster_order_id",
+                        column: x => x.order_id,
                         principalTable: "OrderMaster",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryMaster_StoreId",
+                name: "IX_CategoryMaster_store_id",
                 table: "CategoryMaster",
-                column: "StoreId");
+                column: "store_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemMaster_CategoryId",
+                name: "IX_ItemMaster_category_id",
                 table: "ItemMaster",
-                column: "CategoryId");
+                column: "category_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_ItemId",
+                name: "IX_OrderDetails_item_id",
                 table: "OrderDetails",
-                column: "ItemId");
+                column: "item_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderDetails_OrderId",
+                name: "IX_OrderDetails_order_id",
                 table: "OrderDetails",
-                column: "OrderId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderMaster_CustomerId",
+                name: "IX_OrderMaster_customer_id",
                 table: "OrderMaster",
-                column: "CustomerId");
+                column: "customer_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderMaster_StoreId",
+                name: "IX_OrderMaster_store_id",
                 table: "OrderMaster",
-                column: "StoreId");
+                column: "store_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderStatus_OrderId",
+                name: "IX_OrderStatus_order_id",
                 table: "OrderStatus",
-                column: "OrderId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PaymentMaster_OrderId",
+                name: "IX_PaymentMaster_order_id",
                 table: "PaymentMaster",
-                column: "OrderId");
+                column: "order_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StoreMaster_RestaurantId",
+                name: "IX_StoreMaster_restaurant_id",
                 table: "StoreMaster",
-                column: "RestaurantId");
+                column: "restaurant_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

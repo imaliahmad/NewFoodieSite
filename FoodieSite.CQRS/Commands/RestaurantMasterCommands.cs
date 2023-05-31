@@ -1,7 +1,5 @@
 ﻿using FoodieSite.CQRS.Commands.interfaces;
-using FoodieSite.CQRS.Commands.interfaces;
 using FoodieSite.CQRS.Models;
-using FoodieSite.CQRS.Repositories.interfaces;
 using FoodieSite.CQRS.Repositories.interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,7 +16,13 @@ namespace FoodieSite.CQRS.Commands
         private readonly IRestaurantMasterCommandRepository _commandRepository;
         private readonly IRestaurantMasterQueryRepository _queryRepository;
 
-        public RestaurantMasterCommands(IRestaurantMasterCommandRepository commandRepository, IRestaurantMasterQueryRepository queryRepository)
+        /// <summary>
+        /// Initializes a new instance of the RestaurantMasterCommands class.
+        /// </summary>
+        /// <param name="commandRepository">The repository for executing commands on RestaurantMaster entities.</param>
+        /// <param name="queryRepository">The repository for querying RestaurantMaster entities.</param>
+        public RestaurantMasterCommands(IRestaurantMasterCommandRepository commandRepository, 
+            IRestaurantMasterQueryRepository queryRepository)
         {
             _commandRepository = commandRepository;
             _queryRepository = queryRepository;
@@ -28,7 +32,7 @@ namespace FoodieSite.CQRS.Commands
         /// Deletes a RestaurantMaster entity by its ID.
         /// </summary>
         /// <param name="id">The ID of the RestaurantMaster to delete.</param>
-        /// <returns>JSON response indicating the status of the delete operation.</returns>
+        /// <returns>A JSON response indicating the status of the delete operation.</returns>
         public async Task<JsonResponse> Delete(Guid id)
         {
             return await _commandRepository.Delete(id);
@@ -38,100 +42,98 @@ namespace FoodieSite.CQRS.Commands
         /// Inserts a new RestaurantMaster entity.
         /// </summary>
         /// <param name="obj">The RestaurantMaster object to insert.</param>
-        /// <returns>JSON response indicating the status of the insert operation.</returns>
+        /// <returns>A JSON response indicating the status of the insert operation.</returns>
         public async Task<JsonResponse> Insert(RestaurantMaster obj)
         {
-            var response = await _queryRepository.GetAll();
+            var isValid = await IsValid(obj);
 
-            IEnumerable<RestaurantMaster> restaurants = response.Data as IEnumerable<RestaurantMaster>; // Cast to the appropriate collection type
+            // If the object is valid, perform the insert operation
+            if (isValid.IsSuccess)
+                return await _commandRepository.Insert(obj);
 
-            if (restaurants != null)
-            {
-                // Check for email uniqueness
-                if (restaurants.Any(r => r.Email == obj.Email))
-                {
-                    return new JsonResponse()
-                    {
-                        IsSuccess = false,
-                        Message = "Email already exists.",
-                        StatusCode = 409
-                    };
-                }
-
-                // Check for restaurant code uniqueness
-                if (restaurants.Any(r => r.RestaurantCode == obj.RestaurantCode))
-                {
-                    return new JsonResponse()
-                    {
-                        IsSuccess = false,
-                        Message = "Restaurant code already exists.",
-                        StatusCode = 409
-                    };
-                }
-
-                // Check for restaurant name uniqueness
-                if (restaurants.Any(r => r.Name == obj.Name))
-                {
-                    return new JsonResponse()
-                    {
-                        IsSuccess = false,
-                        Message = "Restaurant name already exists.",
-                        StatusCode = 404
-                    };
-                }
-            }
-
-            return await _commandRepository.Insert(obj);
+            return isValid;
         }
 
         /// <summary>
         /// Updates an existing RestaurantMaster entity.
         /// </summary>
         /// <param name="obj">The updated RestaurantMaster object.</param>
-        /// <returns>JSON response indicating the status of the update operation.</returns>
+        /// <returns>A JSON response indicating the status of the update operation.</returns>
         public async Task<JsonResponse> Update(RestaurantMaster obj)
         {
-            var response = await _queryRepository.GetAll();
+            var isValid = await IsValid(obj);
 
-            IEnumerable<RestaurantMaster> restaurants = response.Data as IEnumerable<RestaurantMaster>; // Cast to the appropriate collection type
+            // If the object is valid, perform the update operation
+            if (isValid.IsSuccess)
+                return await _commandRepository.Update(obj);
+
+            return isValid;
+        }
+
+        /// <summary>
+        /// Validates if a RestaurantMaster object is valid.
+        /// </summary>
+        /// <param name="obj">The RestaurantMaster object to validate.</param>
+        /// <returns>A JSON response indicating the validation status.</returns>
+        public async Task<JsonResponse> IsValid(RestaurantMaster obj)
+        {
+            // Retrieve all existing restaurants
+            var response = await _queryRepository.GetAll();
+            IEnumerable<RestaurantMaster> restaurants = response.Data as IEnumerable<RestaurantMaster>;
 
             if (restaurants != null)
             {
-                // Check for email uniqueness
-                if (restaurants.Any(r => r.Email == obj.Email && obj.Id != r.Id))
+                // Check for restaurant name uniqueness
+                foreach (var restaurant in restaurants)
                 {
-                    return new JsonResponse()
+                    if (restaurant.Name == obj.Name && restaurant.Id != obj.Id)
                     {
-                        IsSuccess = false,
-                        Message = "Email already exists.",
-                        StatusCode = 409
-                    };
+                        return new JsonResponse()
+                        {
+                            IsSuccess = false,
+                            Message = "Restaurant name already exists.",
+                            StatusCode = 409
+                        };
+                    }
                 }
 
                 // Check for restaurant code uniqueness
-                if (restaurants.Any(r => r.RestaurantCode == obj.RestaurantCode && obj.Id != r.Id))
+                foreach (var restaurant in restaurants)
                 {
-                    return new JsonResponse()
+                    if (restaurant.RestaurantCode == obj.RestaurantCode && restaurant.Id != obj.Id)
                     {
-                        IsSuccess = false,
-                        Message = "Restaurant code already exists.",
-                        StatusCode = 409
-                    };
+                        return new JsonResponse()
+                        {
+                            IsSuccess = false,
+                            Message = "Restaurant code already exists.",
+                            StatusCode = 409
+                        };
+                    }
                 }
 
-                // Check for restaurant name uniqueness
-                if (restaurants.Any(r => r.Name == obj.Name && obj.Id != r.Id))
+                // Check for email uniqueness
+                foreach (var restaurant in restaurants)
                 {
-                    return new JsonResponse()
+                    if (restaurant.Email == obj.Email && restaurant.Id != obj.Id)
                     {
-                        IsSuccess = false,
-                        Message = "Restaurant name already exists.",
-                        StatusCode = 404
-                    };
+                        return new JsonResponse()
+                        {
+                            IsSuccess = false,
+                            Message = "Restaurant email already exists.",
+                            StatusCode = 409
+                        };
+                    }
                 }
+
             }
 
-            return await _commandRepository.Update(obj);
+            // If the object is valid, return a success response
+            return new JsonResponse()
+            {
+                IsSuccess = true,
+                StatusCode = 200
+            };
         }
+
     }
 }

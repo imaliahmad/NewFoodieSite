@@ -3,13 +3,13 @@ using FoodieSite.CQRS.Models;
 using FoodieSite.CQRS.Repositories.interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FoodieSite.CQRS.Repositories
 {
+    /// <summary>
+    /// Repository for performing CRUD operations related to ItemMaster entities.
+    /// </summary>
     public class ItemMasterCommandRepository : IItemMasterCommandRepository
     {
         private readonly EFCoreDbContext context;
@@ -19,7 +19,11 @@ namespace FoodieSite.CQRS.Repositories
             context = _context;
         }
 
-        // Deletes an item by ID
+        /// <summary>
+        /// Deletes an item by ID.
+        /// </summary>
+        /// <param name="id">The ID of the item to delete.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the success or failure of the operation.</returns>
         public async Task<JsonResponse> Delete(Guid id)
         {
             var obj = await context.tblItemMaster.Where(x => x.Id == id && x.IsActive == true).FirstOrDefaultAsync();
@@ -35,7 +39,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Message = "Record deleted successfully.", StatusCode = 200 };
         }
 
-        // Inserts a new item
+        /// <summary>
+        /// Inserts a new item.
+        /// </summary>
+        /// <param name="obj">The item object to insert.</param>
+        /// <returns>A <see cref="JsonResponse"/> containing the inserted item and the status of the operation.</returns>
         public async Task<JsonResponse> Insert(ItemMaster obj)
         {
             obj.IsActive = true;
@@ -47,7 +55,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Data = obj, Message = "Record saved successfully.", StatusCode = 200 };
         }
 
-        // Updates an existing item
+        /// <summary>
+        /// Updates an existing item.
+        /// </summary>
+        /// <param name="obj">The item object with updated values.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the success or failure of the update operation.</returns>
         public async Task<JsonResponse> Update(ItemMaster obj)
         {
             var record = await context.tblItemMaster.Where(x => x.Id == obj.Id && x.IsActive == true).FirstOrDefaultAsync();

@@ -10,23 +10,23 @@ using System.Threading.Tasks;
 namespace FoodieSite.CQRS.Queries
 {
     /// <summary>
-    /// Represents the implementation of restaurant master queries.
+    /// Represents the implementation of payment master queries.
     /// </summary>
-    public class RestaurantMasterQueries : IRestaurantMasterQueries
+    public class PaymentMasterQueries : IPaymentMasterQueries
     {
-        private readonly IRestaurantMasterQueryRepository repository;
+        private readonly IPaymentMasterQueryRepository repository;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RestaurantMasterQueries"/> class.
+        /// Initializes a new instance of the <see cref="PaymentMasterQueries"/> class.
         /// </summary>
-        /// <param name="_repository">The restaurant master query repository.</param>
-        public RestaurantMasterQueries(IRestaurantMasterQueryRepository _repository)
+        /// <param name="_repository">The payment master query repository.</param>
+        public PaymentMasterQueries(IPaymentMasterQueryRepository _repository)
         {
             repository = _repository;
         }
 
         /// <summary>
-        /// Retrieves all restaurant details.
+        /// Retrieves all payment details.
         /// </summary>
         /// <returns>A <see cref="Task{JsonResponse}"/> representing the asynchronous operation.</returns>
         public async Task<JsonResponse> GetAll()
@@ -35,9 +35,9 @@ namespace FoodieSite.CQRS.Queries
         }
 
         /// <summary>
-        /// Retrieves restaurant details by its ID.
+        /// Retrieves payment details by its ID.
         /// </summary>
-        /// <param name="id">The ID of the restaurant.</param>
+        /// <param name="id">The ID of the payment.</param>
         /// <returns>A <see cref="Task{JsonResponse}"/> representing the asynchronous operation.</returns>
         public async Task<JsonResponse> GetById(Guid id)
         {

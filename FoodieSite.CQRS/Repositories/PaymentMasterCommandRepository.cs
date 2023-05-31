@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace FoodieSite.CQRS.Repositories
 {
+    /// <summary>
+    /// Repository for performing CRUD operations on payment master records.
+    /// </summary>
     public class PaymentMasterCommandRepository : IPaymentMasterCommandRepository
     {
         private readonly EFCoreDbContext context;
@@ -19,7 +22,11 @@ namespace FoodieSite.CQRS.Repositories
             context = _context;
         }
 
-        // Deletes a payment master record by ID
+        /// <summary>
+        /// Deletes a payment master record by ID.
+        /// </summary>
+        /// <param name="id">The ID of the payment master record.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the result of the operation.</returns>
         public async Task<JsonResponse> Delete(Guid id)
         {
             var obj = await context.tblPaymentMaster.Where(x => x.Id == id && x.IsActive == true).FirstOrDefaultAsync();
@@ -35,7 +42,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Message = "Record deleted successfully.", StatusCode = 200 };
         }
 
-        // Inserts a new payment master record
+        /// <summary>
+        /// Inserts a new payment master record.
+        /// </summary>
+        /// <param name="obj">The payment master object to be inserted.</param>
+        /// <returns>A <see cref="JsonResponse"/> containing the inserted payment master record.</returns>
         public async Task<JsonResponse> Insert(PaymentMaster obj)
         {
             obj.IsActive = true;
@@ -47,7 +58,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Data = obj, Message = "Record saved successfully.", StatusCode = 200 };
         }
 
-        // Updates an existing payment master record
+        /// <summary>
+        /// Updates an existing payment master record.
+        /// </summary>
+        /// <param name="obj">The payment master object with updated values.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the result of the operation.</returns>
         public async Task<JsonResponse> Update(PaymentMaster obj)
         {
             var record = await context.tblPaymentMaster.Where(x => x.Id == obj.Id && x.IsActive == true).FirstOrDefaultAsync();

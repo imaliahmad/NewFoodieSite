@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace FoodieSite.CQRS.Repositories
 {
+    /// <summary>
+    /// Repository for querying order master records.
+    /// </summary>
     public class OrderMasterQueryRepository : IOrderMasterQueryRepository
     {
         private readonly EFCoreDbContext context;
@@ -19,14 +22,21 @@ namespace FoodieSite.CQRS.Repositories
             context = _context;
         }
 
-        // Retrieves all order master records
+        /// <summary>
+        /// Retrieves all order master records.
+        /// </summary>
+        /// <returns>A <see cref="JsonResponse"/> containing the retrieved order master records.</returns>
         public async Task<JsonResponse> GetAll()
         {
             var list = await context.tblOrderMaster.Where(x => x.IsActive == true).ToListAsync();
             return new JsonResponse() { IsSuccess = true, StatusCode = 200, Data = list };
         }
 
-        // Retrieves order master records by store ID
+        /// <summary>
+        /// Retrieves order master records by store ID.
+        /// </summary>
+        /// <param name="id">The ID of the store.</param>
+        /// <returns>A <see cref="JsonResponse"/> containing the retrieved order master records.</returns>
         public async Task<JsonResponse> GetByStoreId(Guid id)
         {
             var obj = await context.tblOrderMaster.Where(x => x.StoreId == id && x.IsActive == true).ToListAsync();
@@ -37,7 +47,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, StatusCode = 200, Data = obj };
         }
 
-        // Retrieves order master records by customer ID
+        /// <summary>
+        /// Retrieves order master records by customer ID.
+        /// </summary>
+        /// <param name="id">The ID of the customer.</param>
+        /// <returns>A <see cref="JsonResponse"/> containing the retrieved order master records.</returns>
         public async Task<JsonResponse> GetByCustomerId(Guid id)
         {
             var obj = await context.tblOrderMaster.Where(x => x.CustomerId == id && x.IsActive == true).ToListAsync();
@@ -48,7 +62,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, StatusCode = 200, Data = obj };
         }
 
-        // Retrieves an order master record by ID
+        /// <summary>
+        /// Retrieves an order master record by ID.
+        /// </summary>
+        /// <param name="id">The ID of the order master record.</param>
+        /// <returns>A <see cref="JsonResponse"/> containing the retrieved order master record.</returns>
         public async Task<JsonResponse> GetById(Guid id)
         {
             var obj = await context.tblOrderMaster.Where(x => x.Id == id && x.IsActive == true).FirstOrDefaultAsync();
@@ -59,6 +77,5 @@ namespace FoodieSite.CQRS.Repositories
 
             return new JsonResponse() { IsSuccess = true, StatusCode = 200, Data = obj };
         }
-
     }
 }

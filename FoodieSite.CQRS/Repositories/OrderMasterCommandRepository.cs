@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace FoodieSite.CQRS.Repositories
 {
+    /// <summary>
+    /// Repository for managing order master records.
+    /// </summary>
     public class OrderMasterCommandRepository : IOrderMasterCommandRepository
     {
         private readonly EFCoreDbContext context;
@@ -19,7 +22,11 @@ namespace FoodieSite.CQRS.Repositories
             context = _context;
         }
 
-        // Deletes an order master record by ID
+        /// <summary>
+        /// Deletes an order master record by ID.
+        /// </summary>
+        /// <param name="id">The ID of the order master record to delete.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the result of the operation.</returns>
         public async Task<JsonResponse> Delete(Guid id)
         {
             var obj = await context.tblOrderMaster.Where(x => x.Id == id && x.IsActive == true).FirstOrDefaultAsync();
@@ -35,7 +42,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Message = "Record deleted successfully.", StatusCode = 200 };
         }
 
-        // Inserts a new order master record
+        /// <summary>
+        /// Inserts a new order master record.
+        /// </summary>
+        /// <param name="obj">The order master object to insert.</param>
+        /// <returns>A <see cref="JsonResponse"/> containing the inserted order master record.</returns>
         public async Task<JsonResponse> Insert(OrderMaster obj)
         {
             obj.IsActive = true;
@@ -47,7 +58,11 @@ namespace FoodieSite.CQRS.Repositories
             return new JsonResponse() { IsSuccess = true, Data = obj, Message = "Record saved successfully.", StatusCode = 200 };
         }
 
-        // Updates an existing order master record
+        /// <summary>
+        /// Updates an existing order master record.
+        /// </summary>
+        /// <param name="obj">The order master object to update.</param>
+        /// <returns>A <see cref="JsonResponse"/> indicating the result of the operation.</returns>
         public async Task<JsonResponse> Update(OrderMaster obj)
         {
             var record = await context.tblOrderMaster.Where(x => x.Id == obj.Id && x.IsActive == true).FirstOrDefaultAsync();

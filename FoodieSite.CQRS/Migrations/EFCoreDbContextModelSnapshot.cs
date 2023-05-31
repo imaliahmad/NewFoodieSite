@@ -36,8 +36,8 @@ namespace FoodieSite.CQRS.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("description");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -50,11 +50,12 @@ namespace FoodieSite.CQRS.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("name");
 
                     b.Property<Guid>("StoreId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("store_id");
 
                     b.HasKey("Id");
 
@@ -71,23 +72,23 @@ namespace FoodieSite.CQRS.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(350)")
+                        .HasColumnName("address");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("city");
 
                     b.Property<string>("ContactNumber1")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("contact_number_1");
 
                     b.Property<string>("ContactNumber2")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("contact_number_2");
 
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -106,8 +107,8 @@ namespace FoodieSite.CQRS.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("name");
 
                     b.HasKey("Id");
 
@@ -121,7 +122,8 @@ namespace FoodieSite.CQRS.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CategoryId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("category_id");
 
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -131,8 +133,8 @@ namespace FoodieSite.CQRS.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasColumnName("description");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -145,11 +147,12 @@ namespace FoodieSite.CQRS.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("name");
 
                     b.Property<decimal>("SalePrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("sale_price");
 
                     b.HasKey("Id");
 
@@ -174,7 +177,8 @@ namespace FoodieSite.CQRS.Migrations
                         .HasColumnType("bit");
 
                     b.Property<Guid>("ItemId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("item_id");
 
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
@@ -183,10 +187,12 @@ namespace FoodieSite.CQRS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("order_id");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("quantity");
 
                     b.HasKey("Id");
 
@@ -210,11 +216,13 @@ namespace FoodieSite.CQRS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("customer_id");
 
                     b.Property<string>("InvoiceNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("invoice_no");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -226,7 +234,8 @@ namespace FoodieSite.CQRS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("StoreId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("store_id");
 
                     b.HasKey("Id");
 
@@ -259,10 +268,12 @@ namespace FoodieSite.CQRS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("order_id");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("status");
 
                     b.HasKey("Id");
 
@@ -293,11 +304,13 @@ namespace FoodieSite.CQRS.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("order_id");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("type");
 
                     b.HasKey("Id");
 
@@ -498,13 +511,13 @@ namespace FoodieSite.CQRS.Migrations
 
             modelBuilder.Entity("FoodieSite.CQRS.Models.PaymentMaster", b =>
                 {
-                    b.HasOne("FoodieSite.CQRS.Models.OrderMaster", "Order")
+                    b.HasOne("FoodieSite.CQRS.Models.OrderMaster", "OrderMaster")
                         .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Order");
+                    b.Navigation("OrderMaster");
                 });
 
             modelBuilder.Entity("FoodieSite.CQRS.Models.StoreMaster", b =>
