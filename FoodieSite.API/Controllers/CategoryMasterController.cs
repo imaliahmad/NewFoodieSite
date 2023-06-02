@@ -17,7 +17,7 @@ using System;
 namespace FoodieSite.API.Controllers
 {
     /// <summary>
-    /// Controller for managing store master operations.
+    /// Controller for managing category master operations.
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
@@ -29,8 +29,8 @@ namespace FoodieSite.API.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="CategoryMasterController"/> class.
         /// </summary>
-        /// <param name="_objCategoryMasterCommands">The store master commands instance.</param>
-        /// <param name="_objCategoryMasterQueries">The store master queries instance.</param>
+        /// <param name="_objCategoryMasterCommands">The category master commands instance.</param>
+        /// <param name="_objCategoryMasterQueries">The category master queries instance.</param>
         public CategoryMasterController(ICategoryMasterCommands _objCategoryMasterCommands, ICategoryMasterQueries _objCategoryMasterQueries)
         {
             objCategoryMasterCommands = _objCategoryMasterCommands;
@@ -38,9 +38,9 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves all store masters.
+        /// Retrieves all category masters.
         /// </summary>
-        /// <returns>HTTP response containing the list of store masters.</returns>
+        /// <returns>HTTP response containing the list of category masters.</returns>
         [HttpGet]
         [Route("getAll")]
         public async Task<IActionResult> GetAll()
@@ -60,10 +60,10 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Retrieves a store master by its ID.
+        /// Retrieves a category master by its ID.
         /// </summary>
-        /// <param name="Id">The ID of the store master.</param>
-        /// <returns>HTTP response containing the store master.</returns>
+        /// <param name="Id">The ID of the category master.</param>
+        /// <returns>HTTP response containing the category master.</returns>
         [HttpGet]
         [Route("getById/{Id}")]
         public async Task<IActionResult> GetByRestaurantId(Guid Id)
@@ -83,9 +83,9 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Creates a new store master.
+        /// Creates a new category master.
         /// </summary>
-        /// <param name="objDTO">The DTO containing the store master details.</param>
+        /// <param name="objDTO">The DTO containing the category master details.</param>
         /// <returns>HTTP response containing the result of the create operation.</returns>
         [HttpPost]
         [Route("create")]
@@ -111,9 +111,9 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Updates an existing store master.
+        /// Updates an existing category master.
         /// </summary>
-        /// <param name="objDTO">The DTO containing the updated store master details.</param>
+        /// <param name="objDTO">The DTO containing the updated category master details.</param>
         /// <returns>HTTP response containing the result of the update operation.</returns>
         [HttpPut]
         [Route("update")]
@@ -139,9 +139,9 @@ namespace FoodieSite.API.Controllers
         }
 
         /// <summary>
-        /// Deletes a store master by its ID.
+        /// Deletes a category master by its ID.
         /// </summary>
-        /// <param name="Id">The ID of the store master to delete.</param>
+        /// <param name="Id">The ID of the category master to delete.</param>
         /// <returns>HTTP response containing the result of the delete operation.</returns>
         [HttpDelete]
         [Route("delete/{Id}")]
