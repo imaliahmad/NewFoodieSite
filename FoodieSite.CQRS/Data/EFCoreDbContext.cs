@@ -1,4 +1,5 @@
 ﻿using FoodieSite.CQRS.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace FoodieSite.CQRS.Data
 {
-    public class EFCoreDbContext : DbContext
+    public class EFCoreDbContext : IdentityDbContext<AppUser>
     {
-        public EFCoreDbContext(DbContextOptions options) : base(options)
+        private SeedData _seedData;
+        public EFCoreDbContext(DbContextOptions<EFCoreDbContext> options, SeedData seedData) : base(options)
         {
+            _seedData = seedData;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,9 +35,8 @@ namespace FoodieSite.CQRS.Data
             }
 
             base.OnModelCreating(modelBuilder);
+            _seedData.SeedRoles(modelBuilder);
         }
-
-
 
         public DbSet<RestaurantMaster> tblRestaurantMaster { get; set; }
         public DbSet<StoreMaster> tblStoreMaster { get; set; }
@@ -45,5 +47,6 @@ namespace FoodieSite.CQRS.Data
         public DbSet<OrderDetails> tblOrderDetails { get; set; }
         public DbSet<OrderStatus> tblOrderStatus { get; set; }
         public DbSet<PaymentMaster> tblPaymentMaster { get; set; }
+        public DbSet<AppUser> tblAppUser { get; set; }
     }
 }
