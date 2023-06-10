@@ -10,6 +10,7 @@ namespace FoodieSite.CQRS.DataTypes
 	{
 		Admin,
 		Manager,
-		TeamLeader
+		TeamLeader,
+		User
 	}
 }

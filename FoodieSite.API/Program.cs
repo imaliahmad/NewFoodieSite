@@ -7,6 +7,8 @@ using FoodieSite.CQRS.Queries.interfaces;
 using FoodieSite.CQRS.Queries;
 using FoodieSite.CQRS.Repositories.interfaces;
 using FoodieSite.CQRS.Repositories;
+using Microsoft.AspNetCore.Identity;
+using FoodieSite.CQRS.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +38,11 @@ builder.Services.AddDbContext<EFCoreDbContext>
 	(options => options.UseSqlServer(builder.Configuration.
 									 GetConnectionString("DbConfig")));
 
+builder.Services.AddTransient<SeedData>();
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<EFCoreDbContext>()
+                .AddDefaultTokenProviders();
 
 #region Register Commands
 builder.Services.AddTransient<IRestaurantMasterCommands, RestaurantMasterCommands>();
